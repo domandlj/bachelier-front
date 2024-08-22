@@ -1,0 +1,78 @@
+/* Bio.css */
+
+/* Import Google Fonts and Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@600;700&display=swap');
+
+/* Montserrat is imported in the JavaScript file, so no need to import it here again */
+
+/* Apply Montserrat font globally in the body */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.bio-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-height: 75vh;
+  width: 95vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 120px auto;
+}
+
+.bio-content {
+  background-color: rgb(0, 0, 0);
+  border: 1px solid #1e1e1e;
+  border-radius: 5px;
+  padding: 30px;
+  max-width: 700px;
+  text-align: center;
+}
+
+.bio h2 {
+  color: rgb(255, 255, 255);
+  font-family: 'Poppins', sans-serif; /* Cool heading font */
+  font-size: 32px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.bio p {
+  color: #666;
+  font-family: 'Open Sans', sans-serif; /* Modern paragraph font */
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 15px 0;
+}
+
+.bio a {
+  color: #333;
+  font-family: 'Open Sans', sans-serif; /* Use the same font for links */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bio a:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+.typewriter-font {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  color: #333;
+}
+
+.bio-text:last-child {
+  margin-bottom: 0;
+}
+
+.bio-text .fa-github,
+.bio-text .fa-envelope {
+  margin-right: 8px; /* Space between icon and text */
+  color: white; /* Matching color with the text */
+  vertical-align: middle; /* Align icon with the text */
+}

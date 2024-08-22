@@ -1,0 +1,27 @@
+.navbar {
+  color: black;
+  text-align: center;
+  margin-top:100px;
+  margin-bottom:20px;
+
+}
+
+.navbar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.navbar li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: grey;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}

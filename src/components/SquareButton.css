@@ -1,0 +1,49 @@
+/* SquareButton.css */
+
+/* SquareButton.css */
+
+.square-button {
+  width: 80px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  border: 1px solid gray;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.01s ease, box-shadow 0.01s ease;
+}
+.square-button-share {
+  width: 80px;
+  height: 30px;
+  background-color: rgb(9, 79, 30);
+  color: white;
+  border: 1px solid rgb(67, 110, 35);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.01s ease, box-shadow 0.01s ease;
+}
+
+.square-button-selected {
+  width: 80px;
+  height: 30px;
+  background-color: black;
+  color: rgb(114, 111, 116);
+  border: 1px solid gray;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.01s ease, box-shadow 0.01s ease;
+}
+
+.square-button:hover {
+  background-color: #000000;
+  color: white;
+  border-radius: 4px;
+  border: 1px solid gray;
+  transform: translateY(1px);
+}
+
+
+
