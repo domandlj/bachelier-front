@@ -21,8 +21,6 @@ const currentUrl = new URL(window.location.href).origin;
 const BACK_URL = process.env.REACT_APP_BACK_URL;
 
 
-
-
 const style = {
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
@@ -487,7 +485,7 @@ const CodeEditor = ({id}) => {
 
       if (response.ok) {
         const result = await response.json();
-        setUrl(`${currentUrl}/models/${result.id}`);
+        setUrl(`${currentUrl}/#/models/${result.id}`);
         console.log('Model created successfully:', result);
       } else {
         console.error('Failed to create model:', response.statusText);
@@ -533,7 +531,7 @@ const CodeEditor = ({id}) => {
             gap={1}
             p={0}>
           <SquareButton icon={faArrowLeft} selected={view==="list"} onClick={() => setView('list')}  />
-          <SquareButton onClick={handlePost} share icon={faShareNodes} text={" Share"}/>
+          <SquareButton onClick={handlePost} share icon={faShareNodes}/>
           </Box>
           <UrlModal isUrlModalOpen={isUrlModalOpen} setIsUrlModalOpen={setIsUrlModalOpen} url={url} />
           <Typography variant="h6" gutterBottom sx={{ marginTop:'10px', color: "white" }}>

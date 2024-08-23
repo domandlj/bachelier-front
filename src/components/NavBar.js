@@ -28,7 +28,7 @@ function NavBar({option}) {
         
         <li>
         <Link to="/bio">
-        <SquareButton code={true} selected={option==="whoami"} text={"whoami"}/>
+        <SquareButton code={false} selected={option==="whoami"} text={"About"}/>
         </Link>
         </li>
 
