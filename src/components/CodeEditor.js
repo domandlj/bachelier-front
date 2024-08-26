@@ -190,7 +190,7 @@ const CodeSection = ({handlePlotModel, plotModel, setParamNames , output,
                 sx={style}
                 margin="normal"
                 value={numParams}
-                onChange={(e) => {setParameters({}); setNumParams(parseInt(e.target.value))}}
+                onChange={(e) => {setParameters({}); setNumParams(parseInt(e.target.value)||0 )}}
               />
               <Box>
                 {renderParameterInputs()}
@@ -366,7 +366,7 @@ const CodeEditor = ({id}) => {
           setParamNames(model.paramNames);
         setOutput('');
         setMarkdown(model.markdown || ''); // Load markdown if available
-        setNumParams(Object.keys(model.parameters).length);
+        setNumParams(Object.keys(model.parameters).length || 0);
    
       } else {
         console.log('Model not found');
@@ -428,7 +428,7 @@ const CodeEditor = ({id}) => {
         console.log(data);
         //modelName, code, parameters, markdown, paramNames
         if (data){
-          setNumParams(Object.keys(data.parameters).length);
+          setNumParams(Object.keys(data.parameters).length || 0);
           setModelName(data.name);
           setCode(data.code);
           setParameters(data.parameters);
