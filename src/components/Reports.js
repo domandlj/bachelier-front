@@ -415,11 +415,20 @@ function Reports() {
   const [dolar, setDolar] = useState({});
 
   useEffect(() => {
-    fetch('https://dolarapi.com/v1/dolares/oficial')
-      .then(response => response.json())
-      .then(data => setDolar(data))
-      .catch(error => console.error('Error al obtener el dólar:', error));
-  }, []);
+    const fetchDolar = async () => {
+      try {
+        const response = await fetch('https://dolarapi.com/v1/dolares/oficial');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        setDolar(data);
+      } catch (error) {
+        setError(error.message); // Update error state
+        console.error('Error al obtener el dólar:', error);
+      }
+    };
+  
+    fetchDolar();
+  }, []); 
 
   useEffect(() => {
     fetch(`${BACK_URL}/securities/fixed/lecaps`)
@@ -431,7 +440,7 @@ function Reports() {
       })
       .then(data => {
         data.sort((a, b) => a["dias"] - b["dias"]);
-        data.map(item => {item["breakeven"]= item["total"]*dolar.venta/item["precio"]})
+        data.map(item => {item["breakeven"]= item["total"]*dolar["venta"]/item["precio"]})
         data.map(item => {item["sup"]= (1400 * (1 + 0.01)**(item["dias"] / 30))})
         data.map(item => {item["tem"]= item["tem"]*100})
         setTrendDataS( calculateTrendLine(data.filter(item=> item['tem'] > 0)));
@@ -445,7 +454,7 @@ function Reports() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [dolar.venta]);
 
   console.log(reportData);
   return (

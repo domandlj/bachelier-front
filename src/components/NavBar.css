@@ -25,3 +25,19 @@
 .navbar a:hover {
   text-decoration: underline;
 }
+
+
+.navbar ul {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Mobile menu button styles */
+@media (max-width: 900px) {
+  .navbar {
+    display: none;
+  }
+}
