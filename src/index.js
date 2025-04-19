@@ -4,18 +4,22 @@ import './index.css';
 import App from './App';
 import Models from './components/Models';
 import Bio from './components/Bio';
-
+import Reports from './components/Reports';
 import reportWebVitals from './reportWebVitals';
 
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/reports",
+    element: <Reports />,
   },
   {
     path: "/bio",
@@ -26,11 +30,10 @@ const router = createBrowserRouter([
     element: <Models/>,
   },
   {
-    path: "/models/:id",  // Add a dynamic parameter "id"
-    element: <Models/>,  // This component would render the model details based on the id
+    path: "/models/:id",
+    element: <Models/>,
   },
 ]);
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -39,7 +42,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

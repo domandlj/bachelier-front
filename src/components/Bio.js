@@ -6,6 +6,7 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons'; // Import GitHub icon
 import "@fontsource/montserrat"; // Import Montserrat font
 
+
 function Bio() {
   return (
     <div>
@@ -15,7 +16,7 @@ function Bio() {
           <h2>About Me</h2>
 
           <p className="bio-text">
-            I'm Juan Domandl 🇦🇷, I like computers and maths.
+            Juan Domandl 🇦🇷.
           </p>
           <p className="bio-text">
             <FontAwesomeIcon icon={faEnvelope} /> juan.domandl@mi.unc.edu.com.ar

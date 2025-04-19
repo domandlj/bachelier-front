@@ -16,6 +16,13 @@ function NavBar({option}) {
         </li>
 
         <li>
+        <Link to="/reports" >
+        <SquareButton selected={option==="Reports"} text={"Reports"} />
+        </Link>
+      
+        </li>
+
+        <li>
         <Link to="/models" >
         <SquareButton selected={option==="Models"}  text={"Boxes"} />
         </Link>

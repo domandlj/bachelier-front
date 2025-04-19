@@ -76,3 +76,54 @@ body {
   color: white; /* Matching color with the text */
   vertical-align: middle; /* Align icon with the text */
 }
+.reports-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 180px);
+  width: 98vw;
+  max-width: 1600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 120px 0;
+  padding: 0 20px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #333;
+}
+
+.reports-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.reports-container::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 4px;
+}
+
+.reports-container::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border-radius: 4px;
+  border: 2px solid #333;
+}
+
+.reports-container > * {
+  width: 100%;
+  max-width: 1400px;
+}
+
+.report-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.report-content::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 4px;
+}
+
+.report-content::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border-radius: 4px;
+  border: 2px solid #333;
+}
