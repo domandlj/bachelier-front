@@ -93,8 +93,10 @@ function NavBar({ option }) {
             padding: 2,
             height: '100%',
             backgroundColor: '#000',
+            
           }}
         >
+
           <ul style={{ 
             listStyleType: 'none', 
             padding: 0,
@@ -102,21 +104,22 @@ function NavBar({ option }) {
             flexDirection: 'column',
             gap: '8px',
           }}>
-            {links.map((link) => (
-              <li key={link.to} style={{ width: '100%' }}>
-                <Link 
-                  to={link.to} 
-                  onClick={() => setIsDrawerOpen(false)}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <SquareButton 
-                    selected={option === link.optionKey} 
-                    text={link.text} 
-                    fullWidth 
-                  />
-                </Link>
-              </li>
-            ))}
+          {links.map((link) => (
+            <li key={link.to} style={{ width: '100%' }}>
+              <Link 
+                to={link.to} 
+                onClick={() => setIsDrawerOpen(false)}
+                style={{ textDecoration: 'none' }}
+              >
+                <SquareButton 
+                  selected={option === link.optionKey} 
+                  text={link.text} 
+                  fullWidth 
+                  textOnly={true} 
+                />
+              </Link>
+            </li>
+          ))}
           </ul>
         </Box>
       </Drawer>

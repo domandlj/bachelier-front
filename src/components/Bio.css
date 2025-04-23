@@ -76,6 +76,8 @@ body {
   color: white; /* Matching color with the text */
   vertical-align: middle; /* Align icon with the text */
 }
+
+
 .reports-container {
   display: flex;
   justify-content: flex-start;

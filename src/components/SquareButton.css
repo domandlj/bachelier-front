@@ -29,8 +29,10 @@
   width: 80px;
   height: 30px;
   background-color: black;
-  color: rgb(114, 111, 116);
-  border: 1px solid gray;
+  color: #46934a !important;
+  font-weight: bold;
+
+  border: 1px solid  #46934a;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
@@ -47,3 +49,39 @@
 
 
 
+
+
+.text-button {
+  background: #000 !important;  /* Black background */
+  border: none !important;
+  color: #ffffff !important;    /* White text */
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: left;
+  width: 100%;
+  margin: 0;
+  text-transform: none;
+  transition: color 0.2s ease;
+}
+
+.text-button:hover {
+  background: #000 !important;
+  color: #b3b3b3 !important;     /* Lighter gray on hover */
+}
+
+/* SquareButton.css */
+.text-button-selected {
+  color: #2c9231 !important; /* Dark green color */
+  font-weight: bold;
+  font-size: 1rem;
+
+  background: transparent !important;
+  border: none !important;
+  padding: 8px 16px;
+}
+
+/* Optional: Keep the green color on hover */
+.text-button-selected:hover {
+  color: #46934a !important;
+}
