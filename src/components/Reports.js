@@ -26,6 +26,32 @@ import { Tab } from '@mui/material';
 
 const BACK_URL = process.env.REACT_APP_BACK_URL;
 
+
+
+
+function useIsMobile(breakpoint = 600) {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' && window.innerWidth < breakpoint
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < breakpoint);
+    };
+
+    window.addEventListener('resize', handleResize);
+    // also fire once in case size changed between initial render and effect
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
+
 const calculateTrendLine = (data) => {
   if (!data || data.length === 0) return [];
   const points = data.map(d => [d.dias, d.tem]);
@@ -48,14 +74,19 @@ const ResponsiveText = ({ children, ...props }) => (
   </Text>
 );
 
-const lecapsTable = (data) => (
-  <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+const lecapsTable = (data, isMobile) => (
+  <div style={{   overflowX: isMobile ? 'hidden' : 'auto',
+    WebkitOverflowScrolling: 'touch',
+    display: isMobile ? 'flex' : undefined,
+    zoom: isMobile ? 0.4 : 1,                 // scales layout box
+    justifyContent: isMobile ? 'center' : undefined, }}>
     <table style={{ 
-      minWidth: '600px',
-      width: '100%',
-      borderCollapse: 'separate',
-      borderSpacing: '0 8px',
-      fontSize: 'clamp(12px, 3vw, 14px)'
+        width: '100%',
+        borderCollapse: 'separate',
+        borderSpacing: '0 8px',
+        fontSize: 'clamp(12px, 3vw, 14px)',
+        transformOrigin: 'top center',
+        transition: 'transform 0.2s ease-out',
     }}>
       <thead>
         <tr>
@@ -124,14 +155,23 @@ const lecapsTable = (data) => (
 
 
 // This is your original table, refactored to accept an onRowClick
-const BonaresTableView = ({ data, onRowClick }) => (
-  <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+const BonaresTableView = ({ data, onRowClick, isMobile }) => (
+
+
+ 
+
+  <div style={{overflowX: isMobile ? 'hidden' : 'auto',
+    WebkitOverflowScrolling: 'touch',
+    display: isMobile ? 'flex' : undefined,
+    zoom: isMobile ? 0.4 : 1,                 // scales layout box
+    justifyContent: isMobile ? 'center' : undefined,}}>
     <table style={{ 
-      minWidth: '600px',
       width: '100%',
       borderCollapse: 'separate',
       borderSpacing: '0 8px',
-      fontSize: 'clamp(12px, 3vw, 14px)'
+      fontSize: 'clamp(12px, 3vw, 14px)',
+      transformOrigin: 'top center',
+      transition: 'transform 0.2s ease-out',
     }}>
       <thead>
         <tr>
@@ -180,7 +220,7 @@ const BonaresTableView = ({ data, onRowClick }) => (
 );
 
 
-const AmortizationChart = ({ data }) => {
+const AmortizationChart = ({ data, isMobile }) => {
   const chartData = data.map(row => ({
     date: row.date,
     Interest: row.I.toFixed(3),
@@ -188,10 +228,10 @@ const AmortizationChart = ({ data }) => {
   }));
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer aspect={isMobile ? 1.5 : 2.5} width="100%" >
       <BarChart
         data={chartData}
-        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        margin={{ top: 10, right: 10, left: 0, bottom: 5 }}
       >
         <XAxis 
           dataKey="date" 
@@ -232,7 +272,7 @@ const AmortizationChart = ({ data }) => {
   );
 };
 
-const TickerDetail = ({ ticker, cfs, onBack }) => {
+const TickerDetail = ({ ticker, cfs, onBack, isMobile }) => {
   const rows = cfs[ticker] || [];
 
   return (
@@ -255,17 +295,25 @@ const TickerDetail = ({ ticker, cfs, onBack }) => {
       <h2>Detalles {ticker}</h2>
 
       {/* Gráfico de amortización */}
-      {rows.length > 0 && <AmortizationChart data={rows} />}
+      {rows.length > 0 && <AmortizationChart isMobile={isMobile} data={rows} />}
+
+
+  
 
       {/* Aquí seguiría tu tabla como la tienes */}
-      <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", marginTop: 20 }}>
+      <div style={{ overflowX: isMobile ? 'hidden' : 'auto',
+                  WebkitOverflowScrolling: 'touch',
+                  display: isMobile ? 'flex' : undefined,
+                  zoom: isMobile ? 0.3 : 1,                 // scales layout box
+                  justifyContent: isMobile ? 'center' : undefined,}}>
         <table
           style={{
-            minWidth: "600px",
-            width: "100%",
-            borderCollapse: "separate",
-            borderSpacing: "0 8px",
-            fontSize: "clamp(12px, 3vw, 14px)",
+            width: '100%',
+            borderCollapse: 'separate',
+            borderSpacing: '0 8px',
+            fontSize: 'clamp(12px, 3vw, 14px)',
+            transformOrigin: 'top center',
+            transition: 'transform 0.2s ease-out',
           }}
         >
           <thead>
@@ -310,7 +358,7 @@ const TickerDetail = ({ ticker, cfs, onBack }) => {
 
 
 // The “container” component that holds the state and switches views
-function BonosHDTable({ data, cfs }) {
+function BonosHDTable({ data, cfs,isMobile }) {
   const [selected, setSelected] = useState(null);
 
   // If something’s selected, show the detail pane
@@ -320,6 +368,7 @@ function BonosHDTable({ data, cfs }) {
         ticker={selected['ticker']}
         cfs={cfs}
         onBack={() => setSelected(null)}
+        isMobile={isMobile}
       />
     );
   }
@@ -329,6 +378,7 @@ function BonosHDTable({ data, cfs }) {
     <BonaresTableView
       data={data}
       onRowClick={item => setSelected(item)}
+      isMobile={isMobile}
     />
   );
 }
@@ -351,14 +401,14 @@ function BonosHDTable({ data, cfs }) {
 
 
 
-const lecapsChart = (data, trend = []) => (
+const lecapsChart = (data, trend = [], isMobile) => (
   <>
     <h2 style={{ textAlign: 'center', margin: '10px 0', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>
       Relación Días al Vencimiento vs TEM
     </h2>
-    <div style={{ position: 'relative', width: '100%', height: 'clamp(300px, 60vh, 400px)' }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <ScatterChart margin={{ top: 20, right: 10, left: 10, bottom: 60 }}>
+    <div style={{ position: 'relative', width: '100%' }}>
+      <ResponsiveContainer  aspect={isMobile ? 1.5 : 2.5} width="100%" height="100%">
+        <ScatterChart margin={{ top: 10, right: 10, left: 10, bottom: 60 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#444" />
           <XAxis
             type="number"
@@ -368,7 +418,7 @@ const lecapsChart = (data, trend = []) => (
             label={{
               value: 'Días al Vencimiento',
               position: 'bottom',
-              offset: 30,
+              offset: 10,
               fill: '#fff',
               style: { fontSize: 'clamp(10px, 3vw, 14px)' }
             }}
@@ -466,16 +516,16 @@ const lecapsChart = (data, trend = []) => (
   </>
 );
 
-const lecapsBreakEvenChart = (data, dolar) => (
+const lecapsBreakEvenChart = (data, dolar, isMobile) => (
   <>
     <h2 style={{ textAlign: 'center', margin: '10px 0', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>
       Dólar Breakeven (Oficial hoy {dolar?.venta} $)
     </h2>
-    <div style={{ position: 'relative', width: '100%', height: 'clamp(300px, 60vh, 400px)' }}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div style={{ position: 'relative', width: '100%' }}>
+      <ResponsiveContainer aspect={isMobile ? 1.5 : 2.5}  width="100%" height="100%">
         <ComposedChart
           data={data}
-          margin={{ top: 20, right: 10, left: 10, bottom: 60 }}
+          margin={{ top: 10, right: 10, left: 10, bottom: 60 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#444" />
           <XAxis
@@ -554,7 +604,7 @@ const lecapsBreakEvenChart = (data, dolar) => (
 );
 
 
-function Report({ data, dolar, trend, title, table = lecapsTable, charts = lecapsChart }) {
+function Report({ data, dolar, trend, title, table = lecapsTable, charts = lecapsChart , isMobile}) {
   const [isOpen, setIsOpen] = useState(false);
   const [headerColor, setHeaderColor] = useState('#ffffff');
 
@@ -608,33 +658,31 @@ function Report({ data, dolar, trend, title, table = lecapsTable, charts = lecap
         }}
       >
         {/* Data Table */}
-        <div style={{ marginBottom: '40px' }}>
-          {table(data)}
+        <div style={{ marginBottom: '10px' }}>
+          {table(data,isMobile)}
         </div>
 
         {/* Chart */}
         <div
           style={{
-            height: '500px',
             backgroundColor: "black", 
-            padding: '20px',
+            padding: '10px',
             borderRadius: '8px',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
           }}
         >
-          {charts(data,trend)}
+          {charts(data,trend, isMobile)}
         </div>
         <div
           style={{
-            height: '500px',
             backgroundColor: "black", 
-            padding: '20px',
+            padding: '10px',
             borderRadius: '8px',
-            marginTop: '20px',
+            marginTop: '10px',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
           }}
         >
-          {lecapsBreakEvenChart(data, dolar)}
+          {lecapsBreakEvenChart(data, dolar, isMobile)}
         </div>
       </div>
     </div>
@@ -642,7 +690,7 @@ function Report({ data, dolar, trend, title, table = lecapsTable, charts = lecap
 }
 
 
-function ReportHardDollar({ data, dolar, title }) {
+function ReportHardDollar({ data, dolar, title, isMobile }) {
   const [isOpen, setIsOpen] = useState(false);
   const [headerColor, setHeaderColor] = useState('#ffffff');
 
@@ -698,11 +746,11 @@ function ReportHardDollar({ data, dolar, title }) {
         {/* Data Table */}
         <div style={{ marginBottom: '40px' }}>
           <h3>Bonares (Ley AR)</h3>
-          <BonosHDTable data={data["bonares"]||[]} cfs={data["bonares_cf"]||[]}/>
+          <BonosHDTable isMobile={isMobile} data={data["bonares"]||[]} cfs={data["bonares_cf"]||[]}/>
         </div>
           <div style={{ marginBottom: '40px' }}>
           <h3>Globales (Ley NY)</h3>
-          <BonosHDTable data={data["globales"]||[]} cfs={data["globales_cf"]||[]}/>
+          <BonosHDTable isMobile={isMobile} data={data["globales"]||[]} cfs={data["globales_cf"]||[]}/>
         </div>
 
       </div>
@@ -726,6 +774,8 @@ function Reports() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dolar, setDolar] = useState({});
+  const isMobile = useIsMobile(600);  // true if width < 600px
+
 
   useEffect(() => {
     const fetchDolar = async () => {
@@ -795,9 +845,8 @@ function Reports() {
 
   console.log(reportData);
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{  }}>
       <Header option={'Reports'} />
-      {loading && <p style={{ color: '#fff' }}>Cargando...</p>}
       <div className="reports-container">
       <h1
         style={{
@@ -814,8 +863,8 @@ function Reports() {
         }}
       >
         Reporte de 🇦🇷 ({reportDate}) </h1>
-        <Report data={reportData||[]} dolar={dolar} trend={trendDataS}  title={"Letras Tasa Fija Pesos: LECAPs y BONCAPs"} />
-        <ReportHardDollar data={bonosHD||{}} dolar={dolar}  title={"Bonos Hard Dollar: Bonares y Globales"} />
+        <Report isMobile={isMobile} data={reportData||[]} dolar={dolar} trend={trendDataS}  title={"Letras Tasa Fija Pesos: LECAPs y BONCAPs"} />
+        <ReportHardDollar isMobile={isMobile} data={bonosHD||{}} dolar={dolar}  title={"Bonos Hard Dollar: Bonares y Globales"} />
 
       </div>
     </div>
