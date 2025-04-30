@@ -3,7 +3,7 @@ import Header from './Header';
 import BlogPost from './BlogPost';
 import "@fontsource/montserrat"; // Import Montserrat font
 import 'katex/dist/katex.min.css'; // Import KaTeX CSS
-import { Typography, Container, Box, Fade } from '@mui/material'; // Import Material-UI components
+import { Typography, Container, Box } from '@mui/material'; // Import Material-UI components
 
 const blogData = null;
 
@@ -29,7 +29,6 @@ function Bio() {
 
             {/* Presentation Section */}
             <section className="presentation">
-              <Fade in={true} timeout={1000}>
                 <Box
                   sx={{
                     maxWidth: '80vw', // Max width of 80% of viewport width
@@ -54,7 +53,6 @@ function Bio() {
                         xl: '4rem'    // Extra large devices
                       },
                       textAlign: 'center', // Center align headings
-                      fontFamily: 'Montserrat, sans-serif' // Use Montserrat font
                     }}
                   >
                     What's Bachelier?
@@ -173,7 +171,6 @@ function Bio() {
                     Our platform leverages Pyodide, a powerful tool that brings the full Python environment to your browser. With Pyodide, you can execute Python code directly in your browser, enabling real-time interaction with financial models and data. This allows for a seamless integration of Python’s computational capabilities into our web application, making it easy to run and test complex algorithms without any server-side processing.
                   </Typography>
                 </Box>
-              </Fade>
             </section>
 
             {/* Blog Posts */}

@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css'; // You can include your CSS styles here
 import Header from './components/Header';
-import BlogPost from './components/BlogPost';
+//import BlogPost from './components/BlogPost';
 import "@fontsource/montserrat"; // Import Montserrat font
 import 'katex/dist/katex.min.css'; // Import KaTeX CSS
-import { Typography, Container, Box, Fade } from '@mui/material'; // Import Material-UI components
+import { Container, Box} from '@mui/material'; // Import Material-UI components
 import World from './components/World'; // Import World component
 
-const blogData = null;
 
 function App() {
   return (
@@ -21,9 +20,8 @@ function App() {
               sx={{ 
                 mb: 4 // Margin bottom
               }}
-            >
-       
-              <World/>
+            >      
+            <World/>
             </Box>
           </main>
         </Container>
@@ -33,4 +31,3 @@ function App() {
 }
 
 export default App;
-

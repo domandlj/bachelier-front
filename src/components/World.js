@@ -7,9 +7,8 @@ import * as topojson from 'topojson-client';
 const BACK_URL = process.env.REACT_APP_BACK_URL;
 
 // ISO and name lookups keyed by numeric ISO 3166-1 codes
-const isoLookup = { 840: 'USA', 250: 'FRA', 392: 'JPN', 32: 'ARG' };
-const nameLookup = { 840: 'United States', 250: 'France', 392: 'Japan', 32: 'Argentina' };
-
+const isoLookup = { 840: 'USA', 250: 'FRA', 392: 'JPN', 32: 'ARG', 826: 'GBR' };
+const nameLookup = { 840: 'United States', 250: 'France', 392: 'Japan', 32: 'Argentina', 826: 'United Kingdom' };
 export default function NewsGlobe() {
   const globeRef = useRef();
   const [countries, setCountries] = useState({ features: [] });

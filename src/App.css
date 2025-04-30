@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  animation: fadeIn 2s ease-in forwards;
+  opacity: 0;
 }
 
 .App-logo {
@@ -46,3 +48,9 @@
 }
 
 
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
